@@ -40,3 +40,10 @@ const UserDetail = new Schema ({
 
 UserDetail.plugin(passportLocalMongoose);
 const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo');
+
+/* PASSPORT LOCAL AUTHENTICATION */
+
+passport.use(UserDetail.createStrategy());
+
+passport.serialUser(UserDetails.serialUser());
+passport.deserialUser(UserDetails.deserialUser());
