@@ -17,3 +17,26 @@ app.use(expressSession);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('App listening on port' + port ));
+
+/* PASSPORT SETUP */
+
+const passport = require('passprt');
+app.use(passport.initialize());
+app.use(passport.session());
+
+/* MONGOOSE SETUP */
+
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+
+mongoose.connect('mongodb://localhost/MyDatabase',
+{ useNewUrlParser: true, useUnifiedTopology: true });
+
+const Schema = mongoose.Schema;
+const UserDetail = new Schema ({
+    username: String,
+    password: String
+});
+
+UserDetail.plugin(passportLocalMongoose);
+const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo');
